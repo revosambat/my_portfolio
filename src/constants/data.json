@@ -1,0 +1,64 @@
+{
+	"projects": [
+		{
+			"id": 1,
+			"subtitle": "Compliance for heavy vehicle",
+			"title": "Fleet Compliance - Manage Vehicle",
+			"description": "Web app for operators to monitor the drivers, jobs and different reports.",
+			"technologies": {
+				"frontend": ["JavaScript", "ReactJs", "AntDesign", "Redux-Saga"],
+				"backend": ["PHP", "Symfony", "Doctrine", "Auth0", "AWS"],
+				"database": ["MySQL"]
+			}
+		},
+		{
+			"id": 2,
+			"subtitle": "Driver App (FCS-Manage Vehicle)",
+			"title": "Fleet Compliance - Manage Vehicle",
+			"description": "Cross platform mobile app for driver, to monitor, update and create the jobs, reporting services for fuels, incidents, profile view and update, and so on.",
+			"technologies": {
+				"frontend": [
+					"JavaScript",
+					"ReactJs",
+					"MaterialUI",
+					"NativeBase",
+					"React Native",
+					"Flipper",
+					"React-Native-Debugger",
+					"Redux-Saga",
+					"Android Studio",
+					"Gradle",
+					"X-code"
+				],
+				"backend": ["PHP", "Symfony", "Auth0", "AWS", "Doctrine"],
+				"database": ["MySQL"]
+			}
+		},
+		{
+			"id": 3,
+			"subtitle": "Contract and Private hired vechicles with eta and tracking services.",
+			"title": "Wangaratta Coachlines - WCLMS",
+			"description": "Web app for operators to monitor the drivers, jobs and vehicles tracking.",
+			"technologies": {
+				"frontend": ["JavaScript", "ReactJs", "HTML", "CSS", "Redux"],
+				"backend": ["PHP", "Symfony", "CoachManager", "AWS"],
+				"database": ["MS SQL Server"]
+			}
+		}
+	],
+	"skills": [
+		"HTML",
+		"CSS",
+		"Javascript",
+		"PHP",
+		"Python",
+		"Version Control (GIT)",
+		"SQL",
+		"ReactJS",
+		"React Native",
+		"Symfony Framework",
+		"Django Framework",
+		"AWS",
+		"Mysql, MS-Sql Server"
+	]
+}
