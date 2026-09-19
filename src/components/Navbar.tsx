@@ -3,6 +3,8 @@ import React from 'react';
 const links = [
   { href: '#work', label: 'Selected work' },
   { href: '#stack', label: 'Stack' },
+  { href: '#experience', label: 'Experience' },
+  { href: '#architecture', label: 'Architecture' },
   { href: '#contact', label: 'Contact' },
 ] as const;
 

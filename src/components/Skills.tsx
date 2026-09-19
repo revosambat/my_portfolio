@@ -1,7 +1,12 @@
 import React from 'react';
 import { skillGroups } from '../constants/data';
 
-export default function Skills() {
+interface SkillsProps {
+  selectedSkill: string | null;
+  onSkillSelect: (skill: string | null) => void;
+}
+
+export default function Skills({ selectedSkill, onSkillSelect }: SkillsProps) {
   return (
     <section id="stack" className="stack-section section-wrap">
       <div className="section-heading">
@@ -15,7 +20,17 @@ export default function Skills() {
             <span className="skill-index">{group.index}</span>
             <h3>{group.title}</h3>
             <div className="skill-items">
-              {group.items.map((item) => <span key={item}>{item}</span>)}
+              {group.items.map((item) => (
+                <button
+                  className={selectedSkill === item ? 'skill-button selected' : 'skill-button'}
+                  type="button"
+                  key={item}
+                  onClick={() => onSkillSelect(selectedSkill === item ? null : item)}
+                  aria-pressed={selectedSkill === item}
+                >
+                  {item}
+                </button>
+              ))}
             </div>
           </div>
         ))}
