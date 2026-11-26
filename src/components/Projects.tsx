@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { projects } from '../constants/data';
 
 interface ProjectsProps {
@@ -19,6 +19,21 @@ export default function Projects({ selectedSkill, onClearSkill }: ProjectsProps)
     setActiveFilter('All');
     onClearSkill();
   };
+
+  useEffect(() => {
+    const onFocusProject = (event: Event) => {
+      const id = (event as CustomEvent<number>).detail;
+      setActiveFilter('All');
+      onClearSkill();
+      setOpenProject(id);
+      window.setTimeout(() => {
+        document.getElementById(`project-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 120);
+    };
+
+    window.addEventListener('portfolio:focus-project', onFocusProject);
+    return () => window.removeEventListener('portfolio:focus-project', onFocusProject);
+  }, [onClearSkill]);
 
   return (
     <section id="work" className="work-section section-wrap">
@@ -42,7 +57,7 @@ export default function Projects({ selectedSkill, onClearSkill }: ProjectsProps)
       </div>
       <div className="project-grid" data-reveal>
         {visibleProjects.map((project, index) => (
-          <article className={`project-card project-card-${index + 1} ${selectedSkill ? 'skill-filtered' : ''}`} key={project.id}>
+          <article id={`project-${project.id}`} className={`project-card project-card-${index + 1} ${selectedSkill ? 'skill-filtered' : ''}`} key={project.id}>
             <div className="project-topline">
               <span>{project.period}</span>
               <span>{String(index + 1).padStart(2, '0')}</span>

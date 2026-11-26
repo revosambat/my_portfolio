@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from '@formspree/react';
 import type { FormEvent } from 'react';
+import VcardButton from './VcardButton';
 
 export default function Contact() {
   const [state, handleSubmit] = useForm('mpzvwnyq');
@@ -14,10 +15,13 @@ export default function Contact() {
   return (
     <section id="contact" className="contact-section section-wrap">
       <div className="contact-copy" data-reveal>
-        <p className="eyebrow">06 / Start a conversation</p>
+        <p className="eyebrow">07 / Start a conversation</p>
         <h2>Have a hard problem?<br /><em>Let&apos;s make it simpler.</em></h2>
         <p>Tell me what you&apos;re building, where it&apos;s stuck, or what you want to explore next.</p>
-        <a className="email-link" href="mailto:revosambat123@gmail.com">revosambat123@gmail.com <span>↗</span></a>
+        <div className="contact-actions">
+          <a className="email-link" href="mailto:revosambat123@gmail.com">revosambat123@gmail.com <span>↗</span></a>
+          <VcardButton />
+        </div>
       </div>
       {state.succeeded ? (
         <div className="form-success"><span>✓</span><h3>Thanks for reaching out.</h3><p>I&apos;ll get back to you soon.</p></div>

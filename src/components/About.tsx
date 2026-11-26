@@ -1,15 +1,18 @@
 import React from 'react';
 import portrait from '../assets/images/my_pic_4.jpg';
+import LiveStatus from './LiveStatus';
+import Terminal from './Terminal';
 
 interface AboutProps {
   onOpenResume: () => void;
+  onToggleTheme: () => void;
 }
 
-export default function About({ onOpenResume }: AboutProps) {
+export default function About({ onOpenResume, onToggleTheme }: AboutProps) {
   return (
     <section id="top" className="hero section-wrap">
       <div className="hero-copy" data-reveal>
-        <p className="eyebrow"><span className="status-dot" /> Available for selected projects</p>
+        <p className="eyebrow">Backend-focused full-stack developer</p>
         <h1>Backend-minded.<br /><em>Product focused.</em></h1>
         <p className="hero-intro">
           I&apos;m Sambat, a software engineer with nearly five years building web, mobile, and
@@ -27,16 +30,14 @@ export default function About({ onOpenResume }: AboutProps) {
           <img src={portrait} alt="Sambat Das" />
           <span className="portrait-label">Sambat Das / 2026</span>
         </div>
-        <div className="hero-note">
-          <span className="note-number">01</span>
-          <p>Currently working on backend engineering, technical requirements analysis, and system architecture for business applications.</p>
-        </div>
+        <LiveStatus />
       </div>
       <div className="hero-meta" data-reveal>
         <span>Software engineer</span>
         <span>Nearly 5 years shipping software</span>
         <span>Malta · Remote</span>
       </div>
+      <Terminal onOpenResume={onOpenResume} onToggleTheme={onToggleTheme} />
     </section>
   );
 }

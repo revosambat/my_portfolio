@@ -30,6 +30,11 @@ const sections = [
     description: 'Explore the system patterns behind offline-first mobile apps, multi-tenant platforms, sensor data, and API-driven business systems.',
   },
   {
+    id: 'impact',
+    title: 'Impact',
+    description: 'Measured outcomes from Sambat Das\'s work: fewer support tickets, lower cloud costs, and faster delivery cycles.',
+  },
+  {
     id: 'contact',
     title: 'Contact',
     description: 'Get in touch with Sambat Das about backend engineering, architecture, and full-stack product work.',
