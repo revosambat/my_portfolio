@@ -5,9 +5,25 @@
 		<link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="theme-color" content="#111412" />
+		<script>
+			(function () {
+				try {
+					var stored = localStorage.getItem('portfolio-theme');
+					var theme = stored === 'light' || stored === 'dark'
+						? stored
+						: (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+					document.documentElement.dataset.theme = theme;
+					document.documentElement.classList.add('reveal-ready');
+					var themeMeta = document.querySelector('meta[name="theme-color"]');
+					if (themeMeta) themeMeta.setAttribute('content', theme === 'light' ? '#f4f4ee' : '#111412');
+				} catch (error) {
+					document.documentElement.dataset.theme = 'dark';
+				}
+			})();
+		</script>
 		<meta
 			name="description"
-			content="Sambat Das — backend-minded full-stack developer building reliable web and mobile products."
+			content="Sambat Das — software engineer and backend-focused full-stack developer building reliable APIs, cloud systems, and mobile products."
 		/>
 		<meta
 			name="google-site-verification"

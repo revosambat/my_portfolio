@@ -7,19 +7,19 @@ export default function Experience() {
 
   return (
     <section id="experience" className="experience-section section-wrap">
-      <div className="section-heading">
+      <div className="section-heading" data-reveal>
         <p className="eyebrow">03 / Experience</p>
         <h2>A career shaped by real products.</h2>
         <p>Move through the timeline to see how my work grew from software delivery into product-focused, full-stack systems.</p>
       </div>
-      <div className="experience-timeline" role="tablist" aria-label="Career timeline">
+      <div className="experience-timeline" role="tablist" aria-label="Career timeline" data-reveal>
         {experience.map((item, index) => (
           <button
             className={activeExperience === index ? 'timeline-item active' : 'timeline-item'}
             type="button"
             role="tab"
             aria-selected={activeExperience === index}
-            key={item.company}
+            key={`${item.company}-${item.period}`}
             onClick={() => setActiveExperience(index)}
           >
             <span>{item.period}</span>
@@ -27,7 +27,7 @@ export default function Experience() {
           </button>
         ))}
       </div>
-      <div className="experience-detail" role="tabpanel">
+      <div className="experience-detail" role="tabpanel" data-reveal>
         <div>
           <p className="eyebrow">{selected.period}</p>
           <h3>{selected.company}</h3>

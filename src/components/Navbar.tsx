@@ -1,4 +1,6 @@
 import React from 'react';
+import ThemeToggle from './ThemeToggle';
+import type { Theme } from '../hooks/useTheme';
 
 const links = [
   { href: '#work', label: 'Selected work' },
@@ -8,7 +10,13 @@ const links = [
   { href: '#contact', label: 'Contact' },
 ] as const;
 
-export default function Navbar() {
+interface NavbarProps {
+  theme: Theme;
+  onToggleTheme: () => void;
+  onOpenResume: () => void;
+}
+
+export default function Navbar({ theme, onToggleTheme, onOpenResume }: NavbarProps) {
   return (
     <header className="site-nav">
       <a className="brand" href="#top" aria-label="Sambat Das home">
@@ -20,7 +28,11 @@ export default function Navbar() {
           <a key={link.href} href={link.href}>{link.label}</a>
         ))}
       </nav>
-      <a className="nav-cta" href="mailto:revosambat123@gmail.com">Let's talk <span>↗</span></a>
+      <div className="nav-actions">
+        <button className="nav-resume" type="button" onClick={onOpenResume}>Résumé</button>
+        <ThemeToggle theme={theme} onToggle={onToggleTheme} />
+        <a className="nav-cta" href="mailto:revosambat123@gmail.com">Let's talk <span>↗</span></a>
+      </div>
     </header>
   );
 }

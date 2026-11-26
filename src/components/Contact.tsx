@@ -13,8 +13,8 @@ export default function Contact() {
 
   return (
     <section id="contact" className="contact-section section-wrap">
-      <div className="contact-copy">
-        <p className="eyebrow">04 / Start a conversation</p>
+      <div className="contact-copy" data-reveal>
+        <p className="eyebrow">06 / Start a conversation</p>
         <h2>Have a hard problem?<br /><em>Let&apos;s make it simpler.</em></h2>
         <p>Tell me what you&apos;re building, where it&apos;s stuck, or what you want to explore next.</p>
         <a className="email-link" href="mailto:revosambat123@gmail.com">revosambat123@gmail.com <span>↗</span></a>
@@ -22,7 +22,7 @@ export default function Contact() {
       {state.succeeded ? (
         <div className="form-success"><span>✓</span><h3>Thanks for reaching out.</h3><p>I&apos;ll get back to you soon.</p></div>
       ) : (
-        <form onSubmit={submitForm} className="contact-form">
+        <form onSubmit={submitForm} className="contact-form" data-reveal>
           <label htmlFor="name">Your name<input id="name" name="name" type="text" required /></label>
           <label htmlFor="email">Email address<input id="email" name="email" type="email" required /></label>
           <div className="brief-options">
