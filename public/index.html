@@ -25,6 +25,59 @@
 			name="description"
 			content="Sambat Das — software engineer and backend-focused full-stack developer building reliable APIs, cloud systems, and mobile products."
 		/>
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Sambat Das" />
+		<meta property="og:title" content="Sambat Das — Software Engineer & Backend-Focused Full Stack Developer" />
+		<meta property="og:description" content="Software engineer with nearly five years building reliable APIs, cloud systems, and mobile products across SaaS, property tech, and environmental tech." />
+		<meta property="og:url" content="%PUBLIC_URL%/" />
+		<meta property="og:image" content="%PUBLIC_URL%/og-image.jpg" />
+		<meta property="og:image:alt" content="Portrait of Sambat Das" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="Sambat Das — Software Engineer & Backend-Focused Full Stack Developer" />
+		<meta name="twitter:description" content="Software engineer with nearly five years building reliable APIs, cloud systems, and mobile products across SaaS, property tech, and environmental tech." />
+		<meta name="twitter:image" content="%PUBLIC_URL%/og-image.jpg" />
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "Person",
+			"name": "Sambat Das",
+			"jobTitle": "Software Engineer",
+			"description": "Software engineer and backend-focused full-stack developer building reliable APIs, cloud systems, and mobile products.",
+			"email": "revosambat123@gmail.com",
+			"telephone": "+35677233471",
+			"sameAs": ["https://www.linkedin.com/in/sambat-das-67471b194/"],
+			"alumniOf": {
+				"@type": "College",
+				"name": "Sagarmatha College of Science and Technology"
+			},
+			"address": {
+				"@type": "PostalAddress",
+				"addressLocality": "San Pawl il-Baħar",
+				"addressCountry": "MT"
+			},
+			"knowsAbout": ["NestJS", "Node.js", "TypeScript", "PostgreSQL", "Domain-Driven Design", "CQRS", "AWS", "React.js", "React Native", "Docker"]
+		}
+		</script>
+		<script>
+			(function () {
+				try {
+					var pageUrl = window.location.href.split('#')[0].split('?')[0];
+					var imageUrl = new URL('og-image.jpg', pageUrl).href;
+					[
+						['property', 'og:url', pageUrl],
+						['property', 'og:image', imageUrl],
+						['name', 'twitter:image', imageUrl]
+					].forEach(function (entry) {
+						var meta = document.querySelector('meta[' + entry[0] + '="' + entry[1] + '"]');
+						if (meta) meta.setAttribute('content', entry[2]);
+					});
+					var canonical = document.createElement('link');
+					canonical.rel = 'canonical';
+					canonical.href = pageUrl;
+					document.head.appendChild(canonical);
+				} catch (error) {}
+			})();
+		</script>
 		<meta
 			name="google-site-verification"
 			content="kXl7r5cRB1Ki3b5AIrzeCYEfrHLH37lYKC_Wxit0aiQ"
@@ -44,7 +97,7 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-		<title>Sambat Das — Full-stack developer</title>
+		<title>Sambat Das — Software Engineer &amp; Backend-Focused Full Stack Developer</title>
 	</head>
 	<body>
 		<noscript>You need to enable JavaScript to run this app.</noscript>

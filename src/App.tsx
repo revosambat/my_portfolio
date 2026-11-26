@@ -9,12 +9,15 @@ import Experience from './components/Experience';
 import Architecture from './components/Architecture';
 import Resume from './components/Resume';
 import ScrollProgress from './components/ScrollProgress';
+import OfflineNotice from './components/OfflineNotice';
 import { useTheme } from './hooks/useTheme';
+import { useSeo } from './hooks/useSeo';
 
 function App() {
   const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
   const [resumeOpen, setResumeOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  useSeo();
   const openResume = useCallback(() => setResumeOpen(true), []);
   const closeResume = useCallback(() => setResumeOpen(false), []);
 
@@ -42,6 +45,7 @@ function App() {
   return (
     <>
       <ScrollProgress />
+      <OfflineNotice />
       <div className="site-shell">
         <Navbar theme={theme} onToggleTheme={toggleTheme} onOpenResume={openResume} />
         <main>
