@@ -1,4 +1,5 @@
 import os
+import time
 import ftplib
 from pathlib import Path
 
@@ -13,6 +14,10 @@ FTP_PASSWORD = os.environ.get("INFINITY_FTP_PASSWORD")
 
 REMOTE_DIR = "/htdocs"
 BUILD_DIR = Path("build")
+
+FTP_TIMEOUT = 60
+MAX_ATTEMPTS = 5
+UPLOAD_DELAY = 0.4
 
 
 # ==============================
@@ -37,63 +42,83 @@ if not BUILD_DIR.exists():
 # FTP Helpers
 # ==============================
 
-def ensure_remote_directory(ftp, remote_path):
+ftp = None
+
+
+def create_connection():
+    client = ftplib.FTP()
+    client.connect(FTP_HOST, 21, timeout=FTP_TIMEOUT)
+    client.login(FTP_USER, FTP_PASSWORD)
+    client.set_pasv(True)
+    return client
+
+
+def connection():
+    global ftp
+    if ftp is None:
+        ftp = create_connection()
+    return ftp
+
+
+def drop_connection():
+    global ftp
+    if ftp is not None:
+        try:
+            ftp.quit()
+        except ftplib.all_errors:
+            ftp.close()
+        ftp = None
+
+
+def ensure_remote_directory(client, remote_path):
     parts = remote_path.strip("/").split("/")
 
-    ftp.cwd("/")
+    client.cwd("/")
 
     for part in parts:
         try:
-            ftp.cwd(part)
+            client.cwd(part)
         except ftplib.error_perm:
-            ftp.mkd(part)
-            ftp.cwd(part)
+            client.mkd(part)
+            client.cwd(part)
 
 
-def upload_file(ftp, local_file, remote_file):
-    remote_dir = os.path.dirname(remote_file)
+def upload_file(local_file, remote_dir):
+    remote_name = local_file.name
 
-    if remote_dir:
-        ensure_remote_directory(ftp, remote_dir)
+    for attempt in range(1, MAX_ATTEMPTS + 1):
+        try:
+            client = connection()
+            ensure_remote_directory(client, remote_dir)
 
-    with open(local_file, "rb") as file:
-        ftp.storbinary(
-            f"STOR {os.path.basename(remote_file)}",
-            file
-        )
+            with open(local_file, "rb") as file:
+                client.storbinary(f"STOR {remote_name}", file)
+            return
+        except ftplib.all_errors as error:
+            drop_connection()
+
+            if attempt == MAX_ATTEMPTS:
+                raise RuntimeError(
+                    f"Failed to upload {remote_name} after {attempt} attempts: {error}"
+                ) from error
+
+            wait = 2 * attempt
+            print(f"  Retrying {remote_name} in {wait}s ({attempt}/{MAX_ATTEMPTS})...")
+            time.sleep(wait)
 
 
-def upload_directory(ftp, local_dir, remote_dir):
-    ensure_remote_directory(ftp, remote_dir)
+def upload_directory(local_dir, remote_dir):
+    ensure_remote_directory(connection(), remote_dir)
 
-    for item in local_dir.iterdir():
-
-        remote_path = (
-            remote_dir.rstrip("/")
-            + "/"
-            + item.name
-        )
+    for item in sorted(local_dir.iterdir()):
+        remote_path = remote_dir.rstrip("/") + "/" + item.name
 
         if item.is_dir():
-            upload_directory(
-                ftp,
-                item,
-                remote_path
-            )
-
+            upload_directory(item, remote_path)
         else:
             print(f"Uploading: {item}")
-
-            ensure_remote_directory(
-                ftp,
-                remote_dir
-            )
-
-            with open(item, "rb") as file:
-                ftp.storbinary(
-                    f"STOR {item.name}",
-                    file
-                )
+            upload_file(item, remote_dir)
+            time.sleep(UPLOAD_DELAY)
 
 
 # ==============================
@@ -110,22 +135,15 @@ print(f"Remote directory: {REMOTE_DIR}")
 print()
 
 print("Connecting to InfinityFree...")
-
-ftp = ftplib.FTP()
-ftp.connect(FTP_HOST, 21, timeout=30)
-ftp.login(FTP_USER, FTP_PASSWORD)
-
+connection()
 print("FTP connection successful.")
 
 print("Uploading build...")
 
-upload_directory(
-    ftp,
-    BUILD_DIR,
-    REMOTE_DIR
-)
-
-ftp.quit()
+try:
+    upload_directory(BUILD_DIR, REMOTE_DIR)
+finally:
+    drop_connection()
 
 print()
 print("================================")
