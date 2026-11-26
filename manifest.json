@@ -1,6 +1,7 @@
 {
 	"short_name": "Sambat",
-	"name": "Sambat Das",
+	"name": "Sambat Das — Software Engineer",
+	"description": "Portfolio of Sambat Das, a backend-focused full-stack developer building reliable APIs, cloud systems, and mobile products.",
 	"icons": [
 		{
 			"src": "favicon.ico",
@@ -20,6 +21,6 @@
 	],
 	"start_url": ".",
 	"display": "standalone",
-	"theme_color": "#000000",
-	"background_color": "#ffffff"
+	"theme_color": "#111412",
+	"background_color": "#111412"
 }
